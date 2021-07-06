@@ -1,6 +1,6 @@
 node {
    def commit_id
- environment {
+    environment {
         HOME = '.'
     }
    stage('Preparation') {
