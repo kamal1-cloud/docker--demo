@@ -10,6 +10,7 @@ node {
      myTestContainer.pull()
      myTestContainer.inside {
       sh "chmod +x -R ${env.WORKSPACE}"
+      sh "./my-script.sh"
       sh 'npm install --only=dev'
       sh 'npm test'
      }
