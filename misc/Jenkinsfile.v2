@@ -1,8 +1,11 @@
 node {
    def commit_id
     environment {
-        HOME = '.'
-    }
+    // Override HOME to WORKSPACE
+    HOME = "${WORKSPACE}"
+    // or override default cache directory (~/.npm)
+    NPM_CONFIG_CACHE = "${WORKSPACE}/.npm"
+}
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
