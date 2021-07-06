@@ -9,9 +9,7 @@ node {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
      myTestContainer.inside {
-      sh "chmod +x -R ${env.WORKSPACE}"
-      sh "./my-script.sh"
-      sh 'npm install --only=dev'
+      sh 'sudo npm install --only=dev'
       sh 'npm test'
      }
    }
