@@ -1,5 +1,14 @@
 node {
    def commit_id
+   agent {
+        docker {
+            args '-u 0:0'
+
+        }
+    }
+    environment {
+        CI = 'true'
+    }
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
