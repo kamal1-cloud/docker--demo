@@ -1,12 +1,7 @@
 node {
    def commit_id
-   agent {
-        docker {
-            args '-u 0:0'
-
-        }
-    }
     environment {
+    args '-u 0:0'
         CI = 'true'
     }
    stage('Preparation') {
