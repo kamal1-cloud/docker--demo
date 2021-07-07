@@ -1,16 +1,19 @@
 node {
    def commit_id
+   
+      agent {
+            args '-p 3000:3000 -p 5000:5000'
+            args '-u 0:0'
+    }
+    environment {
+        CI = 'true'
+    }
+   
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
      commit_id = readFile('.git/commit-id').trim()
    }
-     environment {
-        // stupid NPM configstore package!
-        XDG_CONFIG_HOME = '.configstore'
-        // stupid NPM username package!
-        USER = 'dummyuser'
-    }
     stage('test') {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
