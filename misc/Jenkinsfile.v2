@@ -1,13 +1,10 @@
 node {
    def commit_id
-  agent {
-                docker {
-                    args '-v /home/jenkins/.ssh:/home/jenkins/.ssh:ro -u 0'
-                }
-            }
-
+   
     environment {
         CI = 'true'
+        
+        args '-v /home/jenkins/.ssh:/home/jenkins/.ssh:ro -u 0'
     }
    
    stage('Preparation') {
