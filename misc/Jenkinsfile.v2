@@ -1,9 +1,5 @@
 node {
    def commit_id
-    environment {
-    args '-u 0:0'
-        CI = 'true'
-    }
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
@@ -21,7 +17,7 @@ node {
      def mysql = docker.image('mysql').run("-e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
-     myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
+     myTestContainer.inside("--link ${mysql.id}:mysql", "-u root") { // using linking, mysql will be available at host: mysql, port: 3306
           sh 'npm install --only=dev' 
           sh 'npm test'                     
      }                                   
