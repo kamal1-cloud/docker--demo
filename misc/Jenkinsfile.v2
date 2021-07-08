@@ -1,6 +1,6 @@
 node {
    def commit_id
-       
+       def app
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
@@ -25,7 +25,7 @@ node {
      mysql.stop()
    }                                     
    stage('docker build') {            
-       def app = docker.build("habrich001/docker-nodejs-demo:${commit_id}", '.')
+       app = docker.build("habrich001/docker-nodejs-demo:${commit_id}", '.')
            
    }    
    
