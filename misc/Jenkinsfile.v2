@@ -1,5 +1,17 @@
 node {
    def commit_id
+     stages {
+
+        stage("Fix the permission issue") {
+
+            agent any
+
+            steps {
+                sh "sudo chown root:jenkins /run/docker.sock"
+            }
+
+        }
+        
    stage('Preparation') {
      checkout scm
      sh "git rev-parse --short HEAD > .git/commit-id"
@@ -8,7 +20,7 @@ node {
     stage('test') {
      def myTestContainer = docker.image('node:4.6')
      myTestContainer.pull()
-     myTestContainer.inside ("-u root"){
+     myTestContainer.inside {
       sh 'npm install --only=dev'
       sh 'npm test'
      }
